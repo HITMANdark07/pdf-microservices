@@ -1,0 +1,39 @@
+services:
+  auth:
+    build:
+      context: .
+      dockerfile: ./apps/auth/Dockerfile
+      target: development
+    command: pnpm run start:dev auth
+    env_file:
+      - ./apps/auth/.env
+    ports:
+      - '3000:3000'
+    volumes:
+      - .:/usr/src/app
+  signer:
+    build:
+      context: .
+      dockerfile: ./apps/signer/Dockerfile
+      target: development
+    command: pnpm run start:dev signer
+    env_file:
+      - ./apps/signer/.env
+    ports:
+      - '3001:3001'
+    volumes:
+      - .:/usr/src/app
+  uploads:
+    build:
+      context: .
+      dockerfile: ./apps/uploads/Dockerfile
+      target: development
+    command: pnpm run start:dev uploads
+    env_file:
+      - ./apps/uploads/.env
+    ports:
+      - '3002:3002'
+    volumes:
+      - .:/usr/src/app
+  mongo:
+    image: mongo
